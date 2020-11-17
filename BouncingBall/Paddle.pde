@@ -20,6 +20,15 @@ class Paddle {
   int y = 350;
   int w = 100;
   int h = 10;
+  
+  /*
+  Only thing that needs to change is the x value. y, width, and height do not need to change.
+  
+  "this" keyword means the Paddle's x value. the "int x" passed into the object (and update())
+  are considered local variables to the function. You need to use the "this" keyword to specify that
+  we are changing the Paddle's x value.
+  
+  */
   Paddle(int x) {
     this.x = x;
   }
