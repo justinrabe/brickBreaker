@@ -11,16 +11,19 @@ off our paddle, which moves by simply following the mouse pointer. Ethan did his
 he made his paddle move based on the left and right arrow. When the balls hit a brick, the brick disappears
 and the ball bounces off the brick. 
 
+The paddle object shows how a typical Processing Object looks like.
+
 */
 
-/*Object Declarations*/
-Brick bricks [];
-Ball ball;
-Paddle paddle;
-
+/*Variable Declarations (mainly for our brick array)*/
 int rows = 6;
 int columns = 6;
 int size = rows * columns;
+
+/*Object Declarations*/
+Brick bricks [] = new Brick[size];
+Ball ball;
+Paddle paddle;
 
 /*Setup is like "Initialize When Scene Starts" in the CN platform*/
 
@@ -35,30 +38,26 @@ void setup() {
   /* For Loop to initialize brick objects*/
   for (int i = 0; i < rows; i ++) {
     for (int j = 0; j < columns; j ++) {
-      bricks[i * rows + j] = new Brick((i+1) *width/(rows + 1), (j+1) * 30);
+      bricks[i * rows + j] = new Brick((i+1) * width/(rows + 1), (j+1) * 30);
     }
   }
 }
 void draw() {
   background(220);
-  /* Collision code for the brick hitting the ball */
-  for (int i = 0; i < size; i ++) {
-    bricks[i].show();
-    if (ball.y - ball.w/2 < bricks[i].y + bricks[i].h/2 && (ball.x >= bricks[i].x - bricks[i].w/2 && ball.x <= bricks[i].x + bricks[i].w/2) && (bricks[i].showUp)){
-      bricks[i].hit();
-      ball.goDown();
-    }
-  }
-
+  
+  // For every frame, we need to update and show each of our objects.
+  
   paddle.update(mouseX);
   paddle.show();
   ball.show();
   ball.update();
   
+  // Now, we need to code in collision.
+  
   /* 
   Collision code for ball hitting the paddle.
   
-  This might be a little different. In this code, if the ball hits the paddle on the left side, it goes left.
+  This might be a little different in Ethan's code. In this code, if the ball hits the paddle on the left side, it goes left.
   On the right side, it goes right. Ethan doesn't have goRight(), goLeft(), or goUp() functions. He simply has 
   changeXDirection() and changeYDirection(), which is overall a better solution.
   
@@ -72,6 +71,20 @@ void draw() {
     ball.goUp();
     ball.goRight();
   }
+  
+  /* Collision code for the brick hitting the ball */
+  
+  for (int i = 0; i < size; i ++) {
+    bricks[i].show();
+    /*if (ball.y - ball.w/2 < bricks[i].y + bricks[i].h/2 && (ball.x >= bricks[i].x - bricks[i].w/2 && ball.x <= bricks[i].x + bricks[i].w/2) && (bricks[i].showUp)){
+      bricks[i].hit();
+      ball.goDown();
+    }*/
+  }
+
+  
+  
+  
   /*
   Here, we need to code in the ball bouncing off the bricks
   */
